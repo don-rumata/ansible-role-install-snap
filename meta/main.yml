@@ -1,0 +1,48 @@
+galaxy_info:
+  author: don Rumata
+  description: Install Snap for Linux
+  company: localhost
+
+  # If the issue tracker for your role is not on github, uncomment the
+  # next line and provide a value
+  # issue_tracker_url: http://example.com/issue/tracker
+
+  license: Apache License, Version 2.0
+
+  min_ansible_version: 2.8
+
+  platforms:
+    - name: Fedora
+      versions:
+        - 31
+        - 30
+    - name: Ubuntu
+      versions:
+        - eoan
+        - disco
+        - cosmic
+        - bionic
+        - xenial
+        - trusty
+    - name: Debian
+      version:
+        - jessie
+        - stretch
+        - buster
+        - stable
+        - testing
+    # https://github.com/ansible/galaxy/issues/2072
+    - name: EL
+      versions:
+        - 8
+        - 7
+    - name: opensuse
+      vesrion:
+        - tumbleweed
+
+  galaxy_tags:
+    - linux
+    - snap
+
+  dependencies: []
+ 
