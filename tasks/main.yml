@@ -10,7 +10,7 @@
     - package:
         name:
           - snapd
-        state: latest
+        state: present
   tags:
     - linux
     - snap
@@ -34,11 +34,11 @@
     - yum:
         name:
           - https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
-        state: latest
+        state: present
     - yum:
         name:
           - snapd
-        state: latest
+        state: present
     - service:
         name: snapd.socket
         state: started
@@ -62,7 +62,7 @@
     - dnf:
         name:
           - snapd
-        state: latest
+        state: present
   tags:
     - linux
     - snap
@@ -88,7 +88,7 @@
     - zypper:
         name:
           - snappy
-        state: latest
+        state: present
     - service:
         name: snapd.apparmor
         state: started
