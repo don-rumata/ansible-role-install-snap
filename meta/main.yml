@@ -3,10 +3,6 @@ galaxy_info:
   description: Install Snap for Linux
   company: localhost
 
-  # If the issue tracker for your role is not on github, uncomment the
-  # next line and provide a value
-  # issue_tracker_url: http://example.com/issue/tracker
-
   license: Apache License, Version 2.0
 
   min_ansible_version: 2.8
@@ -18,6 +14,7 @@ galaxy_info:
         - 30
     - name: Ubuntu
       versions:
+        - focal
         - eoan
         - disco
         - cosmic
