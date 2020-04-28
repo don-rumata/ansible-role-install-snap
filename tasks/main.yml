@@ -122,10 +122,14 @@
     - ansible_system == 'Linux'
   become: yes
   block:
+    - stat:
+        path: /snap
+      register: root_snap_present
     - file:
         src: /var/lib/snapd/snap
         dest: /snap
         state: link
+      when: root_snap_present.stat.exists == false
   tags:
     - linux
     - snap
