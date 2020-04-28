@@ -81,13 +81,14 @@
   become: yes
   block:
     - zypper_repository:
-        name: snappy
-        repo: "https://download.opensuse.org/repositories/system:/snappy/{{ ansible_distribution | replace(' ', '_') }}/system:snappy.repo"
+        name: system_snappy
+        repo: "https://download.opensuse.org/repositories/system:/snappy/{{ ansible_distribution | replace(' ', '_') }}/"
         auto_import_keys: yes
+        runrefresh: yes
         state: present
     - zypper:
         name:
-          - snappy
+          - snapd
         state: present
     - service:
         name: snapd.apparmor
