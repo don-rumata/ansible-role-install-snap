@@ -1,10 +1,8 @@
-Ansible Role: Install Snap
-==========================
+# Ansible Role: Install Snap
 
 Install [Snap](https://snapcraft.io/) for Linux.
 
-Work on
--------
+## Work on
 
 ```yaml
   platforms:
@@ -36,26 +34,23 @@ Work on
         - tumbleweed
 ```
 
-Requirements
-------------
+## Requirements
 
 None.
 
-Role Variables
---------------
+## Role Variables
 
 None.
 
-Dependencies
-------------
+## Dependencies
 
 [min_ansible_version: 2.8](https://docs.ansible.com/ansible/latest/modules/snap_module.html)
 
-Example Playbook
-----------------
+## Example Playbook
 
-install-firefox-over-snap.yml
-```yml
+`install-firefox-over-snap.yml`:
+
+```yaml
 - name: Install FireFox
   hosts: all
   strategy: free
@@ -75,17 +70,14 @@ install-firefox-over-snap.yml
         - snap
 ```
 
-
-License
--------
+## License
 
 Apache License, Version 2.0
 
-Author Information
-------------------
+## Author Information
 
 [don Rumata](https://github.com/don-rumata)
 
-TODO
-----
-  - Add tests.
+## TODO
+
+- Add tests.
