@@ -8,6 +8,7 @@ Install [Snap](https://snapcraft.io/) for Linux.
   platforms:
     - name: Fedora
       versions:
+        - 32
         - 31
         - 30
     - name: Ubuntu
