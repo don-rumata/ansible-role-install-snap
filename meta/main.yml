@@ -40,6 +40,11 @@ galaxy_info:
   galaxy_tags:
     - linux
     - snap
+    - ubuntu
+    - debian
+    - fedora
+    - centos
+    - opensuse
+    - archlinux
 
   dependencies: []
- 
