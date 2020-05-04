@@ -130,7 +130,7 @@
         src: /var/lib/snapd/snap
         dest: /snap
         state: link
-      when: root_snap_present.stat.exists == false
+      when: root_snap_present.stat.exists == 'false'
   tags:
     - linux
     - snap
