@@ -43,7 +43,6 @@ galaxy_info:
     - snap
     - snapd
     - snapcraft
-    - snapcraft.io
     - ubuntu
     - debian
     - fedora
