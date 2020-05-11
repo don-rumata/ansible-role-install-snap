@@ -1,5 +1,7 @@
 # Ansible Role: Install Snap
 
+[![License][license-image]][license-url]
+
 Install [Snap](https://snapcraft.io/) for Linux.
 
 ## Work on
@@ -82,3 +84,6 @@ Apache License, Version 2.0
 ## TODO
 
 - Add tests.
+
+[license-image]: https://img.shields.io/github/license/don-rumata/ansible-role-install-snap.svg
+[license-url]: https://opensource.org/licenses/Apache-2.0
