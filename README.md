@@ -35,6 +35,9 @@ Install [Snap](https://snapcraft.io/) for Linux.
     - name: opensuse
       vesrion:
         - tumbleweed
+        - 15.2
+        - 15.1
+        - 15.0
 ```
 
 ## Requirements

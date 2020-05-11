@@ -1,16 +1,21 @@
 ---
+- import_tasks: install-4-redhat-yum.yml
+- import_tasks: install-4-suse-zypper.yml
+
 # https://snapcraft.io/docs/installing-snapd
 # TODO. TEST for https://snapcraft.io/docs/installing-snap-on-solus, https://snapcraft.io/docs/installing-snap-on-manjaro-linux, https://snapcraft.io/docs/installing-snap-on-kali
 - name: Install snapd 4 any Linux distros
   when:
     - ansible_system == 'Linux'
-    - not (ansible_pkg_mgr == 'yum' or ansible_pkg_mgr == 'zypper')
+    - not (ansible_pkg_mgr == 'yum')
   become: yes
-  block:
-    - package:
-        name:
-          - snapd
-        state: present
+  package:
+    name:
+      - snapd
+    state: present
+  notify:
+    - start-snapd-socket
+    - start-snapd-apparmor
   tags:
     - linux
     - snap
@@ -19,118 +24,42 @@
     - ubuntu
     - deb
 
-# https://snapcraft.io/docs/installing-snap-on-centos
-- name: Install snapd and config service 4 enterprise RHEL-like
-  when:
-    - ansible_os_family == 'RedHat'
-    - ansible_pkg_mgr == 'yum'
-  become: yes
-  vars:
-    # https://stackoverflow.com/a/47091066/5430535
-    # https://github.com/ansible/ansible/issues/32532#issuecomment-341641007
-    ansible_python_interpreter: /usr/bin/python2.7
-  block:
-    # https://fedoraproject.org/wiki/EPEL
-    - yum:
-        name:
-          - https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
-        state: present
-    - yum:
-        name:
-          - snapd
-        state: present
-    - service:
-        name: snapd.socket
-        state: started
-        enabled: yes
-  tags:
-    - linux
-    - snap
-    - install
-    - rhel
-    - centos
-    - yum
-    - rpm
-
-# https://snapcraft.io/docs/installing-snap-on-fedora
-- name: Install snapd 4 RHEL-like
-  when:
-    - ansible_os_family == 'RedHat'
-    - ansible_pkg_mgr == 'dnf'
-  become: yes
-  block:
-    - dnf:
-        name:
-          - snapd
-        state: present
-  tags:
-    - linux
-    - snap
-    - install
-    - rhel
-    - centos
-    - dnf
-    - rpm
-
-# https://snapcraft.io/docs/installing-snap-on-opensuse
-- name: Install snapd and config service 4 OpenSUSE
-  when: 
-    - ansible_system == 'Linux'
-    - ansible_os_family == 'Suse'
-    - ansible_pkg_mgr == 'zypper'
-  become: yes
-  block:
-    - zypper_repository:
-        name: system_snappy
-        repo: "https://download.opensuse.org/repositories/system:/snappy/{{ ansible_distribution | replace(' ', '_') }}/"
-        auto_import_keys: yes
-        runrefresh: yes
-        state: present
-    - zypper:
-        name:
-          - snapd
-        state: present
-    - service:
-        name: snapd.apparmor
-        state: started
-        enabled: yes
-  tags:
-    - linux
-    - snap
-    - install
-    - suse
-    - opensuse
-    - zypper
-    - rpm
-
 - name: Enable and start snapd service 4 any Linux distros
   when:
     - ansible_system == 'Linux'
   become: yes
-  block:
-    - service:
-        name: snapd
-        state: started
-        enabled: yes
+  service:
+    name: snapd
+    state: started
+    enabled: yes
   tags:
     - linux
     - snap
     - service
 
+- name: Get status about /snap 4 any Linux distros
+  when:
+    - ansible_system == 'Linux'
+  become: yes
+  stat:
+    path: /snap
+  register: root_snap_present
+  tags:
+    - linux
+    - snap
+    - symlink
+    - ln
+
 # https://snapcraft.io/docs/installing-snap-on-red-hat
 - name: Create snapd symlink 4 any Linux distros
   when:
     - ansible_system == 'Linux'
+    - root_snap_present.stat.exists == 'false'
   become: yes
-  block:
-    - stat:
-        path: /snap
-      register: root_snap_present
-    - file:
-        src: /var/lib/snapd/snap
-        dest: /snap
-        state: link
-      when: root_snap_present.stat.exists == 'false'
+  file:
+    src: /var/lib/snapd/snap
+    dest: /snap
+    state: link
   tags:
     - linux
     - snap

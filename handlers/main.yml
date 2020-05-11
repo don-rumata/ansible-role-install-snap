@@ -1,1 +1,44 @@
 ---
+# https://snapcraft.io/docs/installing-snap-on-centos
+- name: start-snapd-socket
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_pkg_mgr == 'yum'
+  become: yes
+  vars:
+    # https://stackoverflow.com/a/47091066/5430535
+    # https://github.com/ansible/ansible/issues/32532#issuecomment-341641007
+    ansible_python_interpreter: /usr/bin/python2.7
+  service:
+    name: snapd.socket
+    state: started
+    enabled: yes
+  tags:
+    - linux
+    - snap
+    - install
+    - rhel
+    - centos
+    - yum
+    - rpm
+
+# https://snapcraft.io/docs/installing-snap-on-opensuse
+- name: start-snapd-apparmor
+  when:
+    - ansible_system == 'Linux'
+    - ansible_os_family == 'Suse'
+    - ansible_distribution == 'openSUSE Tumbleweed'
+    - ansible_pkg_mgr == 'zypper'
+  become: yes
+  service:
+    name: snapd.apparmor
+    state: started
+    enabled: yes
+  tags:
+    - linux
+    - snap
+    - install
+    - suse
+    - opensuse
+    - zypper
+    - rpm

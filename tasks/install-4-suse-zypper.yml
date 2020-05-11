@@ -1,0 +1,45 @@
+---
+# https://snapcraft.io/docs/installing-snap-on-opensuse
+- name: Add repo snapd 4 OpenSUSE Tumbleweed
+  when:
+    - ansible_system == 'Linux'
+    - ansible_os_family == 'Suse'
+    - ansible_distribution == 'openSUSE Tumbleweed'
+    - ansible_pkg_mgr == 'zypper'
+  become: yes
+  zypper_repository:
+    name: system_snappy
+    repo: "https://download.opensuse.org/repositories/system:/snappy/{{ ansible_distribution | replace(' ', '_') }}/"
+    auto_import_keys: yes
+    runrefresh: yes
+    state: present
+  tags:
+    - linux
+    - snap
+    - install
+    - suse
+    - opensuse
+    - zypper
+    - rpm
+
+- name: Add repo snapd 4 OpenSUSE Leap
+  when:
+    - ansible_system == 'Linux'
+    - ansible_os_family == 'Suse'
+    - ansible_distribution == 'openSUSE Leap'
+    - ansible_pkg_mgr == 'zypper'
+  become: yes
+  zypper_repository:
+    name: system_snappy
+    repo: "https://download.opensuse.org/repositories/system:/snappy/{{ ansible_distribution | replace(' ', '_') }}_{{ ansible_distribution_version }}/"
+    auto_import_keys: yes
+    runrefresh: yes
+    state: present
+  tags:
+    - linux
+    - snap
+    - install
+    - suse
+    - opensuse
+    - zypper
+    - rpm
