@@ -41,6 +41,9 @@ galaxy_info:
   galaxy_tags:
     - linux
     - snap
+    - snapd
+    - snapcraft
+    - snapcraft.io
     - ubuntu
     - debian
     - fedora
