@@ -17,6 +17,6 @@ jobs:
             pwd
             mkdir -p /root/.ansible/roles
             mv /root/project /root/.ansible/roles/ansible-role-install-snap
-            pwd
-            ls -l
+            ls -l /root/.ansible/roles/
+            cd /root/.ansible/roles/ansible-role-install-snap
             ansible-playbook --inventory tests/inventory tests/test.yml
