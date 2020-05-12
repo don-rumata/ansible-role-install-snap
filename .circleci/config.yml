@@ -20,4 +20,4 @@ jobs:
             ls -l /root/.ansible/roles/
             cd /root/.ansible/roles/ansible-role-install-snap
             #  ansible-playbook --inventory tests/inventory tests/test.yml
-            ansible-playbook -i "localhost," -c local tests/test.yml
+            ansible-playbook -i "localhost," -c local tests/test.yml -vvv
