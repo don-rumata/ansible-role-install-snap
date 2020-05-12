@@ -11,6 +11,7 @@ jobs:
       - checkout
       - run: 
           name: Ansible run test
-          command:
+          command: |
             cd $CIRCLE_WORKING_DIRECTORY
+            pwd
             ansible-playbook --inventory tests/inventory tests/test.yml
