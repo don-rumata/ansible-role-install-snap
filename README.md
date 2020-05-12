@@ -94,5 +94,5 @@ Apache License, Version 2.0
 [ansible-galaxy-image]: https://img.shields.io/badge/galaxy-don__rumata.ansible__role__install__snap-blue.svg
 [ansible-galaxy-url]: https://galaxy.ansible.com/don_rumata/ansible_role_install_snap
 
-[circleci-image]: https://img.shields.io/circleci/build/github/don-rumata/ansible-role-install-snap.svg
+[circleci-image]: https://circleci.com/gh/don-rumata/ansible-role-install-snap.svg?style=shield
 [circleci-url]: https://circleci.com/gh/don-rumata/ansible-role-install-snap
