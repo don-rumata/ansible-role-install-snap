@@ -12,6 +12,9 @@ jobs:
       - run: 
           name: Ansible run test
           command: |
+            cd /
+            mkdir -p /root/.ansible/roles
+            mv $CIRCLE_WORKING_DIRECTORY /root/.ansible/roles/ansible-role-install-snap
             pwd
             ls -l
             ansible-playbook --inventory tests/inventory tests/test.yml
