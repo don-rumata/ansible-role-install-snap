@@ -1,5 +1,6 @@
 ---
 # https://rtfm.co.ua/circleci-obzor-continuous-integration-servisa/
+# https://circleci.com/orbs/registry/orb/orbss/ansible-ssh#commands-ansible-playbook
 version: 2
 jobs:
   build:
@@ -10,4 +11,6 @@ jobs:
       - checkout
       - run: 
           name: Ansible run test
-          command: ansible-playbook --inventory tests/inventory tests/test.yml
+          command:
+            cd $CIRCLE_WORKING_DIRECTORY
+            ansible-playbook --inventory tests/inventory tests/test.yml

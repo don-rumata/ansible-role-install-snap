@@ -1,6 +1,6 @@
 # Ansible Role: Install Snap
 
-[![License][license-image]][license-url] [![Ansible Galaxy][ansible-galaxy-image]][ansible-galaxy-url]
+[![License][license-image]][license-url] [![Ansible Galaxy][ansible-galaxy-image]][ansible-galaxy-url] [![CircleCI][circleci-image]][circleci-url]
 
 Install [Snap](https://snapcraft.io/) for Linux.
 
@@ -93,3 +93,6 @@ Apache License, Version 2.0
 
 [ansible-galaxy-image]: https://img.shields.io/badge/galaxy-don__rumata.ansible__role__install__snap-blue.svg
 [ansible-galaxy-url]: https://galaxy.ansible.com/don_rumata/ansible_role_install_snap
+
+[circleci-image]: https://img.shields.io/circleci/build/github/don-rumata/ansible-role-install-snap.svg
+[circleci-url]: https://circleci.com/gh/don-rumata/ansible-role-install-snap
