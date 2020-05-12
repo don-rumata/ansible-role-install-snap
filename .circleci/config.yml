@@ -12,6 +12,10 @@ jobs:
       - run: 
           name: Ansible run test
           command: |
+            ls /
+            ls /tmp/
+            ls -l
             cd $CIRCLE_WORKING_DIRECTORY
             pwd
+            ls -l
             ansible-playbook --inventory tests/inventory tests/test.yml
