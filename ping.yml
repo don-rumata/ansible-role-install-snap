@@ -1,0 +1,5 @@
+---
+# https://rtfm.co.ua/circleci-obzor-continuous-integration-servisa/
+- hosts: all
+  tasks:
+  - ping:
