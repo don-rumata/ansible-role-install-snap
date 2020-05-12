@@ -5,7 +5,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: williamyeh/ansible:debian9
+      # - image: williamyeh/ansible:debian9
+      - image: williamyeh/ansible:ubuntu18.04
     resource_class: small
     steps:
       - checkout
