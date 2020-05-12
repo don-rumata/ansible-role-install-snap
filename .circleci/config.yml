@@ -5,15 +5,9 @@ jobs:
   build:
     docker:
       - image: williamyeh/ansible:debian9
+    resource_class: small
     steps:
       - checkout
-      - run:
-          name: Greeting
-          command: echo Hello, world.
-      - run:
-          name: Print the Current Time
-          command: date
       - run: 
-          name: Ansible ping
-          command: ansible-playbook -i "localhost," -c local ping.yml
-
+          name: Ansible run test
+          command: ansible-playbook --inventory tests/inventory tests/test.yml
