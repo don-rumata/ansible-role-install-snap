@@ -1,18 +1,19 @@
 ---
+# TODO. Update ansible to 2.8+
 - hosts: localhost
   remote_user: root
   roles:
     - ansible-role-install-snap
-  task:
+  # tasks:
 
-  # https://snapcraft.io/docs/installing-snap-on-ubuntu
-  - name: Setup snap "Hello World"
-    when: ansible_system == 'Linux'
-    become: yes
-    snap:
-      name: hello-world
-      state: present
+  # # https://snapcraft.io/docs/installing-snap-on-ubuntu
+  # - name: Setup snap "Hello World"
+  #   when: ansible_system == 'Linux'
+  #   become: yes
+  #   snap:
+  #     name: hello-world
+  #     state: present
 
-  - name: Start snap "Hello World"
-    when: ansible_system == 'Linux'
-    command: hello-world
+  # - name: Start snap "Hello World"
+  #   when: ansible_system == 'Linux'
+  #   command: hello-world
