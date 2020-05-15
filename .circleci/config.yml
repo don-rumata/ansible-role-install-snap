@@ -8,7 +8,8 @@ jobs:
     #   - image: williamyeh/ansible:ubuntu18.04
     machine:
       image: circleci/classic:edge
-    resource_class: small
+    # resource_class: small
+    resource_class: medium
     working_directory: ~/.ansible/roles/ansible-role-install-snap
     steps:
       - checkout
