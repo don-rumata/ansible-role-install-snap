@@ -5,21 +5,12 @@ version: 2
 jobs:
   build:
     docker:
-      # - image: williamyeh/ansible:debian9
       - image: williamyeh/ansible:ubuntu18.04
     resource_class: small
     working_directory: ~/.ansible/roles/ansible-role-install-snap
     steps:
       - checkout
-      - run: 
+      - run:
           name: Ansible run test
           command: |
-            # pwd
-            # cd /
-            # pwd
-            # mkdir -p /root/.ansible/roles
-            # mv /root/project /root/.ansible/roles/ansible-role-install-snap
-            # ls -l /root/.ansible/roles/
-            # cd /root/.ansible/roles/ansible-role-install-snap
-            # #  ansible-playbook --inventory tests/inventory tests/test.yml
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
