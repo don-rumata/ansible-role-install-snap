@@ -4,8 +4,10 @@
 version: 2
 jobs:
   build:
-    docker:
-      - image: williamyeh/ansible:ubuntu18.04
+    # docker:
+    #   - image: williamyeh/ansible:ubuntu18.04
+    machine:
+      image: circleci/classic:edge
     resource_class: small
     working_directory: ~/.ansible/roles/ansible-role-install-snap
     steps:
@@ -13,4 +15,8 @@ jobs:
       - run:
           name: Ansible run test
           command: |
+            apt update
+            apt install -y software-properties-common
+            apt-add-repository --yes --update ppa:ansible/ansible
+            apt install -y ansible
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
