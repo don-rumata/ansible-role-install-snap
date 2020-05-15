@@ -10,6 +10,7 @@
     when:
       - ansible_system == 'Linux'
       - ansible_version.full >= '2.8'
+      - ansible_virtualization_type != 'docker'
     become: yes
     snap:
       name: hello-world
@@ -19,4 +20,5 @@
     when:
       - ansible_system == 'Linux'
       - ansible_version.full >= '2.8'
+      - ansible_virtualization_type != 'docker'
     command: hello-world
