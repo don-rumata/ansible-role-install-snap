@@ -5,7 +5,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: williamyeh/ansible:ubuntu18.04
+      # - image: williamyeh/ansible:ubuntu18.04
+      - image: circleci/buildpack-deps:18.04
     # machine:
     #   image: circleci/classic:edge
     resource_class: small
