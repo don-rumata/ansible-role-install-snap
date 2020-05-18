@@ -2,7 +2,7 @@
 # https://rtfm.co.ua/circleci-obzor-continuous-integration-servisa/
 # https://circleci.com/orbs/registry/orb/orbss/ansible-ssh#commands-ansible-playbook
 # https://circleci.com/docs/2.0/docker-image-tags.json
-version: 2
+version: 2.1
 
 executors:
 
