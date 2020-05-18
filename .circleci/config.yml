@@ -1,28 +1,45 @@
 ---
 # https://rtfm.co.ua/circleci-obzor-continuous-integration-servisa/
 # https://circleci.com/orbs/registry/orb/orbss/ansible-ssh#commands-ansible-playbook
+# https://circleci.com/docs/2.0/docker-image-tags.json
 version: 2
-jobs:
-  build:
+
+executors:
+
+  my-executor:
     docker:
-      # - image: williamyeh/ansible:ubuntu18.04
       - image: circleci/buildpack-deps:18.04
-    # machine:
-    #   image: circleci/classic:edge
-    resource_class: small
-    # resource_class: medium
-    working_directory: ~/.ansible/roles/ansible-role-install-snap
+
+jobs:
+
+  run-ansible-playbook-test:
+    executor: my-executor
     steps:
-      - checkout
       - run:
-          name: Ansible run test
+          name: Run Ansible test
           command: |
-            # apt update
-            # apt install -y software-properties-common
-            # apt-add-repository --yes --update ppa:ansible/ansible
-            # apt install -y ansible
-            sudo apt update
-            sudo apt install -y software-properties-common
-            sudo apt-add-repository --yes --update ppa:ansible/ansible
-            sudo apt install -y ansible
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
+
+  # build:
+  #   docker:
+  #     # - image: williamyeh/ansible:ubuntu18.04
+  #     - image: circleci/buildpack-deps:18.04
+  #   # machine:
+  #   #   image: circleci/classic:edge
+  #   resource_class: small
+  #   # resource_class: medium
+  #   working_directory: ~/.ansible/roles/ansible-role-install-snap
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Ansible run test
+  #         command: |
+  #           # apt update
+  #           # apt install -y software-properties-common
+  #           # apt-add-repository --yes --update ppa:ansible/ansible
+  #           # apt install -y ansible
+  #           sudo apt update
+  #           sudo apt install -y software-properties-common
+  #           sudo apt-add-repository --yes --update ppa:ansible/ansible
+  #           sudo apt install -y ansible
+  #           ansible-playbook -i "localhost," -c local tests/test.yml -vvv
