@@ -40,7 +40,9 @@ workflows:
   simple-run-test:
     jobs:
       - install-dependences-4-debian
-      - run-ansible-playbook-test
+      - run-ansible-playbook-test:
+          requires:
+            - install-dependences-4-debian
 
   # build:
   #   docker:
