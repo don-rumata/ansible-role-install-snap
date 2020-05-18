@@ -36,6 +36,7 @@ jobs:
 workflows:
   simple-run-test:
     jobs:
+      - install-dependences-4-debian
       - run-ansible-playbook-test
 
   # build:
