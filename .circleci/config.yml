@@ -7,6 +7,7 @@ version: 2.1
 executors:
 
   my-executor:
+    resource_class: small
     docker:
       - image: circleci/buildpack-deps:18.04
 
@@ -14,11 +15,17 @@ jobs:
 
   run-ansible-playbook-test:
     executor: my-executor
+    working_directory: ~/.ansible/roles/ansible-role-install-snap
     steps:
       - run:
           name: Run Ansible test
           command: |
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
+
+workflows:
+  simple-run-test:
+    jobs:
+      - run-ansible-playbook-test
 
   # build:
   #   docker:
