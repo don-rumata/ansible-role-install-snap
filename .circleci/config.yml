@@ -29,6 +29,7 @@ jobs:
     executor: my-executor
     working_directory: ~/.ansible/roles/ansible-role-install-snap
     steps:
+      - checkout
       - run:
           name: Run Ansible test
           command: |
