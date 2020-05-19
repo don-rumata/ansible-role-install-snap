@@ -13,36 +13,35 @@ executors:
 
 jobs:
 
-  install-dependences-4-debian:
-    executor: my-executor
-    parallelism: 1
-    steps:
-      - run:
-          name: Add repo and gpg key
-          command: |
-            source /etc/os-release
-            echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu $VERSION_CODENAME main" | sudo tee /etc/apt/sources.list.d/ansible.list
-            sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
-            sudo apt update
-            sudo apt install ansible
+  # install-dependences-4-debian:
+  #   executor: my-executor
+  #   steps:
+  #     - run:
+  #         name: Add repo and gpg key
+  #         command: |
+  #           source /etc/os-release
+  #           echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu $VERSION_CODENAME main" | sudo tee /etc/apt/sources.list.d/ansible.list
+  #           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+  #           sudo apt update
+  #           sudo apt install ansible
 
   run-ansible-playbook-test:
     executor: my-executor
-    parallelism: 1
     working_directory: ~/.ansible/roles/ansible-role-install-snap
     steps:
       - run:
           name: Run Ansible test
           command: |
+            wget -O - https://raw.githubusercontent.com/don-rumata/stuff-4-ansible-roles/master/install-ansible-4-ubuntu.sh | bash
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
 workflows:
   simple-run-test:
     jobs:
-      - install-dependences-4-debian
-      - run-ansible-playbook-test:
-          requires:
-            - install-dependences-4-debian
+      # - install-dependences-4-debian
+      - run-ansible-playbook-test
+          # requires:
+          #   - install-dependences-4-debian
 
   # build:
   #   docker:
