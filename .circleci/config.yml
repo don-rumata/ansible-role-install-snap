@@ -2,24 +2,73 @@
 # https://rtfm.co.ua/circleci-obzor-continuous-integration-servisa/
 # https://circleci.com/orbs/registry/orb/orbss/ansible-ssh#commands-ansible-playbook
 # https://circleci.com/docs/2.0/docker-image-tags.json
+
+# TODO. Сделать как-то более компактно, но я пока не знаю как.
 version: 2.1
 
 executors:
+
+  from-circlci-debian-oldstable:
+    resource_class: small
+    docker:
+      - image: circleci/buildpack-deps:oldstable
+
+  from-circlci-debian-stable:
+    resource_class: small
+    docker:
+      - image: circleci/buildpack-deps:stable
+
+  from-circlci-debian-testing:
+    resource_class: small
+    docker:
+      - image: circleci/buildpack-deps:testing
+
+  from-circlci-ubuntu-16-04:
+    resource_class: small
+    docker:
+      - image: circleci/buildpack-deps:16.04
 
   from-circlci-ubuntu-18-04:
     resource_class: small
     docker:
       - image: circleci/buildpack-deps:18.04
 
+  from-circlci-ubuntu-20-04:
+    resource_class: small
+    docker:
+      - image: circleci/buildpack-deps:20.04
+
 jobs:
 
-  run-ansible-playbook-test:
+  run-ansible-playbook-test-on-circlci-ubuntu-16-04:
+    executor: from-circlci-ubuntu-16-04
+    working_directory: ~/.ansible/roles/ansible-role-install-snap
+    steps:
+      - checkout
+      - run:
+          name: Run Ansible test on "circleci/buildpack-deps:16.04".
+          command: |
+            wget -O - https://raw.githubusercontent.com/don-rumata/stuff-4-ansible-roles/master/install-ansible-4-ubuntu.sh | bash
+            ansible-playbook -i "localhost," -c local tests/test.yml -vvv
+
+  run-ansible-playbook-test-on-circlci-ubuntu-18-04:
     executor: from-circlci-ubuntu-18-04
     working_directory: ~/.ansible/roles/ansible-role-install-snap
     steps:
       - checkout
       - run:
-          name: Run Ansible test
+          name: Run Ansible test on "circleci/buildpack-deps:18.04".
+          command: |
+            wget -O - https://raw.githubusercontent.com/don-rumata/stuff-4-ansible-roles/master/install-ansible-4-ubuntu.sh | bash
+            ansible-playbook -i "localhost," -c local tests/test.yml -vvv
+
+  run-ansible-playbook-test-on-circlci-ubuntu-20-04:
+    executor: from-circlci-ubuntu-20-04
+    working_directory: ~/.ansible/roles/ansible-role-install-snap
+    steps:
+      - checkout
+      - run:
+          name: Run Ansible test on "circleci/buildpack-deps:20.04".
           command: |
             wget -O - https://raw.githubusercontent.com/don-rumata/stuff-4-ansible-roles/master/install-ansible-4-ubuntu.sh | bash
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
@@ -27,4 +76,6 @@ jobs:
 workflows:
   simple-run-test:
     jobs:
-      - run-ansible-playbook-test
+      - run-ansible-playbook-test-on-circlci-ubuntu-16-04
+      - run-ansible-playbook-test-on-circlci-ubuntu-18-04
+      - run-ansible-playbook-test-on-circlci-ubuntu-20-04
