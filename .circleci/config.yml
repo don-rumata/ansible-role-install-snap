@@ -6,27 +6,15 @@ version: 2.1
 
 executors:
 
-  my-executor:
+  from-circlci-ubuntu-18-04:
     resource_class: small
     docker:
       - image: circleci/buildpack-deps:18.04
 
 jobs:
 
-  # install-dependences-4-debian:
-  #   executor: my-executor
-  #   steps:
-  #     - run:
-  #         name: Add repo and gpg key
-  #         command: |
-  #           source /etc/os-release
-  #           echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu $VERSION_CODENAME main" | sudo tee /etc/apt/sources.list.d/ansible.list
-  #           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
-  #           sudo apt update
-  #           sudo apt install ansible
-
   run-ansible-playbook-test:
-    executor: my-executor
+    executor: from-circlci-ubuntu-18-04
     working_directory: ~/.ansible/roles/ansible-role-install-snap
     steps:
       - checkout
@@ -39,31 +27,4 @@ jobs:
 workflows:
   simple-run-test:
     jobs:
-      # - install-dependences-4-debian
       - run-ansible-playbook-test
-          # requires:
-          #   - install-dependences-4-debian
-
-  # build:
-  #   docker:
-  #     # - image: williamyeh/ansible:ubuntu18.04
-  #     - image: circleci/buildpack-deps:18.04
-  #   # machine:
-  #   #   image: circleci/classic:edge
-  #   resource_class: small
-  #   # resource_class: medium
-  #   working_directory: ~/.ansible/roles/ansible-role-install-snap
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Ansible run test
-  #         command: |
-  #           # apt update
-  #           # apt install -y software-properties-common
-  #           # apt-add-repository --yes --update ppa:ansible/ansible
-  #           # apt install -y ansible
-  #           sudo apt update
-  #           sudo apt install -y software-properties-common
-  #           sudo apt-add-repository --yes --update ppa:ansible/ansible
-  #           sudo apt install -y ansible
-  #           ansible-playbook -i "localhost," -c local tests/test.yml -vvv
