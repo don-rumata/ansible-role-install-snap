@@ -2,10 +2,13 @@
 # https://rtfm.co.ua/circleci-obzor-continuous-integration-servisa/
 # https://circleci.com/orbs/registry/orb/orbss/ansible-ssh#commands-ansible-playbook
 # https://circleci.com/docs/2.0/docker-image-tags.json
+# https://circleci.com/docs/2.0/sample-config/
 
 # TODO. Сделать как-то более компактно, но я пока не знаю как.
 # TODO. Test https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh
 version: 2.1
+
+install_ansible: wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
 
 executors:
 
@@ -49,7 +52,6 @@ jobs:
       - run:
           name: Run Ansible test on "circleci/buildpack-deps:oldstable".
           command: |
-            # wget -O - https://raw.githubusercontent.com/don-rumata/stuff-4-ansible-roles/master/install-ansible-4-ubuntu.sh | bash
             wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
@@ -61,7 +63,6 @@ jobs:
       - run:
           name: Run Ansible test on "circleci/buildpack-deps:stable".
           command: |
-            # wget -O - https://raw.githubusercontent.com/don-rumata/stuff-4-ansible-roles/master/install-ansible-4-ubuntu.sh | bash
             wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
@@ -73,7 +74,6 @@ jobs:
       - run:
           name: Run Ansible test on "circleci/buildpack-deps:testing".
           command: |
-            # wget -O - https://raw.githubusercontent.com/don-rumata/stuff-4-ansible-roles/master/install-ansible-4-ubuntu.sh | bash
             wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
@@ -85,7 +85,6 @@ jobs:
       - run:
           name: Run Ansible test on "circleci/buildpack-deps:16.04".
           command: |
-            # wget -O - https://raw.githubusercontent.com/don-rumata/stuff-4-ansible-roles/master/install-ansible-4-ubuntu.sh | bash
             wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
@@ -97,8 +96,8 @@ jobs:
       - run:
           name: Run Ansible test on "circleci/buildpack-deps:18.04".
           command: |
-            # wget -O - https://raw.githubusercontent.com/don-rumata/stuff-4-ansible-roles/master/install-ansible-4-ubuntu.sh | bash
-            wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
+            # wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
+            {{ install_ansible }}
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
   run-ansible-playbook-test-on-circlci-ubuntu-20-04:
@@ -109,16 +108,15 @@ jobs:
       - run:
           name: Run Ansible test on "circleci/buildpack-deps:20.04".
           command: |
-            # wget -O - https://raw.githubusercontent.com/don-rumata/stuff-4-ansible-roles/master/install-ansible-4-ubuntu.sh | bash
             wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
 workflows:
   simple-run-test:
     jobs:
-      - run-ansible-playbook-test-on-circlci-debian-oldstable
-      - run-ansible-playbook-test-on-circlci-debian-stable
-      - run-ansible-playbook-test-on-circlci-debian-testing
-      - run-ansible-playbook-test-on-circlci-ubuntu-16-04
+      # - run-ansible-playbook-test-on-circlci-debian-oldstable
+      # - run-ansible-playbook-test-on-circlci-debian-stable
+      # - run-ansible-playbook-test-on-circlci-debian-testing
+      # - run-ansible-playbook-test-on-circlci-ubuntu-16-04
       - run-ansible-playbook-test-on-circlci-ubuntu-18-04
-      - run-ansible-playbook-test-on-circlci-ubuntu-20-04
+      # - run-ansible-playbook-test-on-circlci-ubuntu-20-04
