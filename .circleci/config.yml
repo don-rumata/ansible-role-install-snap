@@ -4,6 +4,7 @@
 # https://circleci.com/docs/2.0/docker-image-tags.json
 
 # TODO. Сделать как-то более компактно, но я пока не знаю как.
+# TODO. Test https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh
 version: 2.1
 
 executors:
@@ -48,7 +49,8 @@ jobs:
       - run:
           name: Run Ansible test on "circleci/buildpack-deps:16.04".
           command: |
-            wget -O - https://raw.githubusercontent.com/don-rumata/stuff-4-ansible-roles/master/install-ansible-4-ubuntu.sh | bash
+            # wget -O - https://raw.githubusercontent.com/don-rumata/stuff-4-ansible-roles/master/install-ansible-4-ubuntu.sh | bash
+            wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | bash
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
   run-ansible-playbook-test-on-circlci-ubuntu-18-04:
@@ -59,7 +61,8 @@ jobs:
       - run:
           name: Run Ansible test on "circleci/buildpack-deps:18.04".
           command: |
-            wget -O - https://raw.githubusercontent.com/don-rumata/stuff-4-ansible-roles/master/install-ansible-4-ubuntu.sh | bash
+            # wget -O - https://raw.githubusercontent.com/don-rumata/stuff-4-ansible-roles/master/install-ansible-4-ubuntu.sh | bash
+            wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | bash
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
   run-ansible-playbook-test-on-circlci-ubuntu-20-04:
@@ -70,7 +73,8 @@ jobs:
       - run:
           name: Run Ansible test on "circleci/buildpack-deps:20.04".
           command: |
-            wget -O - https://raw.githubusercontent.com/don-rumata/stuff-4-ansible-roles/master/install-ansible-4-ubuntu.sh | bash
+            # wget -O - https://raw.githubusercontent.com/don-rumata/stuff-4-ansible-roles/master/install-ansible-4-ubuntu.sh | bash
+            wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | bash
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
 workflows:
