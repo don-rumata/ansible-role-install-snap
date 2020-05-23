@@ -10,6 +10,8 @@ version: 2.1
 
 install_ansible: wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
 
+test_var: qaz
+
 executors:
 
   from-circlci-debian-oldstable:
@@ -94,10 +96,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Run Ansible test on "circleci/buildpack-deps:18.04".
+          name: Run Ansible test on "circleci/buildpack-deps:18.04". {{ test_var }}
           command: |
-            # wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
-            {{ install_ansible }}
+            wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
+            # {{ install_ansible }}
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
   run-ansible-playbook-test-on-circlci-ubuntu-20-04:
