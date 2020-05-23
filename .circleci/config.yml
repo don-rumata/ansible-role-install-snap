@@ -34,6 +34,7 @@ executors:
     resource_class: small
     docker:
       - image: circleci/buildpack-deps:18.04
+      - image: orbss/ansible-playbook
 
   from-circlci-ubuntu-20-04:
     resource_class: small

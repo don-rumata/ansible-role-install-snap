@@ -4,6 +4,7 @@
   when:
     - ansible_os_family == 'RedHat'
     - ansible_pkg_mgr == 'yum'
+    - ansible_virtualization_type != 'docker'
   become: yes
   vars:
     # https://stackoverflow.com/a/47091066/5430535
@@ -29,6 +30,7 @@
     - ansible_os_family == 'Suse'
     - ansible_distribution == 'openSUSE Tumbleweed'
     - ansible_pkg_mgr == 'zypper'
+    - ansible_virtualization_type != 'docker'
   become: yes
   service:
     name: snapd.apparmor
