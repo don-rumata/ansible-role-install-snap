@@ -8,10 +8,6 @@
 # TODO. Test https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh
 version: 2.1
 
-install_ansible: wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
-
-test_var: qaz
-
 executors:
 
   from-circlci-debian-oldstable:
@@ -43,6 +39,11 @@ executors:
     resource_class: small
     docker:
       - image: circleci/buildpack-deps:20.04
+
+  from-dockerhub-centos-7:
+    resource_class: small
+    docker:
+      - image: centos:7
 
 jobs:
 
@@ -96,10 +97,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Run Ansible test on "circleci/buildpack-deps:18.04". {{ test_var }}
+          name: Run Ansible test on "circleci/buildpack-deps:18.04".
           command: |
             wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
-            # {{ install_ansible }}
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
   run-ansible-playbook-test-on-circlci-ubuntu-20-04:
@@ -113,6 +113,17 @@ jobs:
             wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
+  run-ansible-playbook-test-on-dockerhub-centos-7:
+    executor: from-dockerhub-centos-7
+    working_directory: ~/.ansible/roles/ansible-role-install-snap
+    steps:
+      - checkout
+      - run:
+          name: Run Ansible test on "dockerhub-centos-7".
+          command: |
+            wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
+            ansible-playbook -i "localhost," -c local tests/test.yml -vvv
+
 workflows:
   simple-run-test:
     jobs:
@@ -120,5 +131,6 @@ workflows:
       # - run-ansible-playbook-test-on-circlci-debian-stable
       # - run-ansible-playbook-test-on-circlci-debian-testing
       # - run-ansible-playbook-test-on-circlci-ubuntu-16-04
-      - run-ansible-playbook-test-on-circlci-ubuntu-18-04
+      # - run-ansible-playbook-test-on-circlci-ubuntu-18-04
       # - run-ansible-playbook-test-on-circlci-ubuntu-20-04
+      - run-ansible-playbook-test-on-dockerhub-centos-7
