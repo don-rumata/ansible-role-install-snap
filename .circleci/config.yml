@@ -52,9 +52,10 @@ executors:
   test-bridge:
     resource_class: small
     docker:
-      # - image: ubuntu:18.04
-      - image: centos:7
-      - image: centos:8
+      - image: ubuntu:18.04
+      # - image: centos:7
+      # - image: centos:8
+      - image: fedora:latest
 
 jobs:
 
@@ -144,9 +145,9 @@ jobs:
       - run:
           name: Run 2 containers 4 test local network
           command: |
-            echo 123
+            # echo 123
             # yum -y install wget sudo
-            # wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
+            wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
             # ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
 workflows:

@@ -5,6 +5,17 @@
     - ansible-role-install-snap
   tasks:
 
+  - name: Setup 4 any linux
+    when: ansible_system == 'Linux'
+    setup:
+    register: setup_linux
+  - debug:
+      var: setup_linux
+      # var: ansible_date_time.date
+    tags:
+      - linux
+      - setup
+
   # https://snapcraft.io/docs/installing-snap-on-ubuntu
   - name: Setup snap "Hello World"
     when:
