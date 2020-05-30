@@ -138,6 +138,7 @@ jobs:
             wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
+# https://circleci.com/docs/2.0/executor-types/#using-multiple-docker-images
   run-test-bridge:
     executor: test-bridge
     working_directory: ~/.ansible/roles/ansible-role-install-snap
@@ -146,15 +147,10 @@ jobs:
       - run:
           name: Run 2 containers 4 test local network
           command: |
-            # echo 123
-            # yum -y install wget sudo
-            # apt update
-            # apt -y install wget sudo
-            # wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
-            # ansible-playbook -i "localhost," -c local tests/test.yml -vvv
             cat /etc/os-release
-            sleep 5 && nc -vz localhost 80
-            sleep 5 && nc -vz localhost 8080
+            apt update
+            apt -y install wget
+            wget -O - http://localhost/
 
 workflows:
   simple-run-test:
