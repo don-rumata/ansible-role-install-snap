@@ -55,7 +55,8 @@ executors:
       - image: ubuntu:18.04
       # - image: centos:7
       # - image: centos:8
-      - image: fedora:latest
+      # - image: fedora:latest
+      - image: nginx:latest
 
 jobs:
 
@@ -147,10 +148,13 @@ jobs:
           command: |
             # echo 123
             # yum -y install wget sudo
-            apt update
-            apt -y install wget sudo
-            wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
-            ansible-playbook -i "localhost," -c local tests/test.yml -vvv
+            # apt update
+            # apt -y install wget sudo
+            # wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
+            # ansible-playbook -i "localhost," -c local tests/test.yml -vvv
+            cat /etc/os-release
+            sleep 5 && nc -vz localhost 80
+            sleep 5 && nc -vz localhost 8080
 
 workflows:
   simple-run-test:
