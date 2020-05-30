@@ -3,10 +3,14 @@
 # https://circleci.com/orbs/registry/orb/orbss/ansible-ssh#commands-ansible-playbook
 # https://circleci.com/docs/2.0/docker-image-tags.json
 # https://circleci.com/docs/2.0/sample-config/
+# https://circleci.com/docs/2.0/reusing-config/#executor
 
 # TODO. Сделать как-то более компактно, но я пока не знаю как.
 # TODO. Test https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh
 version: 2.1
+
+orbs:
+  # orb-ansible-playbook: orbss/ansible-playbook
 
 executors:
 
@@ -34,7 +38,6 @@ executors:
     resource_class: small
     docker:
       - image: circleci/buildpack-deps:18.04
-      - image: orbss/ansible-playbook
 
   from-circlci-ubuntu-20-04:
     resource_class: small
@@ -44,6 +47,12 @@ executors:
   from-dockerhub-centos-7:
     resource_class: small
     docker:
+      - image: centos:7
+
+  test-bridge:
+    resource_class: small
+    docker:
+      - image: circleci/buildpack-deps:18.04
       - image: centos:7
 
 jobs:
@@ -126,6 +135,18 @@ jobs:
             wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
+  run-test-bridge:
+    executor: test-bridge
+    working_directory: ~/.ansible/roles/ansible-role-install-snap
+    steps:
+      - checkout
+      - run:
+          name: Run 2 containers 4 test local network
+          command: |
+            yum -y install wget sudo
+            wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
+            ansible-playbook -i "localhost," -c local tests/test.yml -vvv
+
 workflows:
   simple-run-test:
     jobs:
@@ -133,6 +154,7 @@ workflows:
       # - run-ansible-playbook-test-on-circlci-debian-stable
       # - run-ansible-playbook-test-on-circlci-debian-testing
       # - run-ansible-playbook-test-on-circlci-ubuntu-16-04
-      - run-ansible-playbook-test-on-circlci-ubuntu-18-04
+      # - run-ansible-playbook-test-on-circlci-ubuntu-18-04
       # - run-ansible-playbook-test-on-circlci-ubuntu-20-04
       # - run-ansible-playbook-test-on-dockerhub-centos-7
+      - run-test-bridge
