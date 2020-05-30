@@ -147,6 +147,7 @@ jobs:
           command: |
             # echo 123
             # yum -y install wget sudo
+            apt -y install wget sudo
             wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
             # ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
