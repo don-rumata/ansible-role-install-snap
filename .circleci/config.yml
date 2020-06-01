@@ -52,12 +52,13 @@ executors:
   test-bridge:
     resource_class: small
     docker:
-      - image: ubuntu:18.04
+      # - image: ubuntu:18.04
       # - image: centos:7
       # - image: centos:8
       # - image: fedora:latest
       # - image: nginx:latest
-      - image: rastasheep/ubuntu-sshd:16.04
+      # - image: rastasheep/ubuntu-sshd:16.04
+      - image: geerlingguy/docker-centos8-ansible
 
 jobs:
 
@@ -148,7 +149,6 @@ jobs:
       - run:
           name: Run 2 containers 4 test local network v2
           command: |
-            wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
 
