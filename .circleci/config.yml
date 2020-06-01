@@ -52,13 +52,13 @@ executors:
   test-bridge:
     resource_class: small
     docker:
-      # - image: ubuntu:18.04
+      - image: ubuntu:18.04
       # - image: centos:7
       # - image: centos:8
       # - image: fedora:latest
       # - image: nginx:latest
-      # - image: rastasheep/ubuntu-sshd:16.04
-      - image: geerlingguy/docker-centos8-ansible
+      - image: rastasheep/ubuntu-sshd:16.04
+      # - image: geerlingguy/docker-centos8-ansible
 
 jobs:
 
