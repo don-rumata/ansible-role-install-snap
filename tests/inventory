@@ -1,2 +1,2 @@
-localhost
-
+# localhost
+localhost ansible_user=root ansible_password=root
