@@ -52,7 +52,8 @@ executors:
   test-bridge:
     resource_class: small
     docker:
-      - image: ubuntu:18.04
+      # - image: ubuntu:18.04
+      - image: ansible/ansible
       # - image: centos:7
       # - image: centos:8
       # - image: fedora:latest
