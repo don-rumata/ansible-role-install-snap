@@ -1,4 +1,5 @@
 ---
+- import_tasks: update-cache.yml
 - import_tasks: install-4-redhat-yum.yml
 - import_tasks: install-4-suse-zypper.yml
 

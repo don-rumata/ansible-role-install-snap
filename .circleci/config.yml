@@ -18,7 +18,7 @@ commands:
       where:
         type: string
         default: '"localhost," -c local'
-      path_to_test_yaml_file:
+      path-to-test-yaml-file:
         type: string
         default: "tests/test.yml"
       verbose_level:
@@ -28,7 +28,7 @@ commands:
       - run:
           name:
           # command: ansible-playbook -i "localhost," -c local tests/test.yml -vvv
-          command: ansible-playbook -i << parameters.where >> << parameters.path_to_test_yaml_file >> -<< parameters.verbose_level >>
+          command: ansible-playbook -i << parameters.where >> << parameters.path-to-test-yaml-file >> -<< parameters.verbose_level >>
 
 # https://circleci.com/docs/2.0/pipeline-variables/#pipeline-parameters-in-configuration
 parameters:
