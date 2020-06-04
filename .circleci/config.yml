@@ -9,62 +9,100 @@
 # TODO. Test https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh
 version: 2.1
 
-orbs:
-  # orb-ansible-playbook: orbss/ansible-playbook
+# https://circleci.com/docs/2.0/reusing-config/#using-the-parameters-declaration
+commands:
+
+  command-run-ansible-test:
+    description: "Run Ansible test"
+    parameters:
+      where:
+        type: string
+        default: '"localhost," -c local'
+      path_to_test_yaml_file:
+        type: string
+        default: "tests/test.yml"
+      verbose_level:
+        type: string
+        default: vvv
+    steps:
+      - run:
+          name:
+          # command: ansible-playbook -i "localhost," -c local tests/test.yml -vvv
+          command: ansible-playbook -i << parameters.where >> << parameters.path_to_test_yaml_file >> -<< parameters.verbose_level >>
+
+# https://circleci.com/docs/2.0/pipeline-variables/#pipeline-parameters-in-configuration
+parameters:
+
+  parameter-working-directory:
+    type: string
+    default: "~/.ansible/roles/ansible-role-install-snap"
+
+  parameter-resource-class:
+    type: string
+    default: "small"
 
 executors:
 
-  # from-circlci-debian-oldstable:
-  #   resource_class: small
-  #   docker:
-  #     - image: circleci/buildpack-deps:oldstable
+  executor-debian-oldstable:
+    resource_class: << pipeline.parameters.parameter-resource-class >>
+    docker:
+      - image: geerlingguy/docker-debian9-ansible
 
-  # from-circlci-debian-stable:
-  #   resource_class: small
-  #   docker:
-  #     - image: circleci/buildpack-deps:stable
+  executor-debian-stable:
+    resource_class: << pipeline.parameters.parameter-resource-class >>
+    docker:
+      - image: geerlingguy/docker-debian10-ansible
 
-  # from-circlci-debian-testing:
-  #   resource_class: small
+  # executor-debian-testing:
+  #   resource_class: << pipeline.parameters.parameter-resource-class >>
   #   docker:
   #     - image: circleci/buildpack-deps:testing
 
-  # from-circlci-ubuntu-16-04:
-  #   resource_class: small
-  #   docker:
-  #     - image: circleci/buildpack-deps:16.04
-
-  # from-circlci-ubuntu-18-04:
-  #   resource_class: small
-  #   docker:
-  #     - image: circleci/buildpack-deps:18.04
-
-  # from-circlci-ubuntu-20-04:
-  #   resource_class: small
-  #   docker:
-  #     - image: circleci/buildpack-deps:20.04
-
-  # from-dockerhub-centos-7:
-  #   resource_class: small
-  #   docker:
-  #     - image: centos:7
-
-  test-bridge:
-    resource_class: small
+  executor-ubuntu-16-04:
+    resource_class: << pipeline.parameters.parameter-resource-class >>
     docker:
-      # - image: ubuntu:18.04
-      - image: ansible/ansible
-      # - image: centos:7
-      # - image: centos:8
-      # - image: fedora:latest
-      # - image: nginx:latest
-      - image: rastasheep/ubuntu-sshd:16.04
-      # - image: geerlingguy/docker-centos8-ansible
+      - image: geerlingguy/docker-ubuntu1604-ansible
+
+  executor-ubuntu-18-04:
+    resource_class: << pipeline.parameters.parameter-resource-class >>
+    docker:
+      - image: geerlingguy/docker-ubuntu1804-ansible
+
+  executor-ubuntu-20-04:
+    resource_class: << pipeline.parameters.parameter-resource-class >>
+    docker:
+      - image: geerlingguy/docker-ubuntu2004-ansible
+
+  executor-centos-7:
+    resource_class: << pipeline.parameters.parameter-resource-class >>
+    docker:
+      - image: geerlingguy/docker-centos7-ansible
+
+  executor-centos-8:
+    resource_class: << pipeline.parameters.parameter-resource-class >>
+    docker:
+      - image: geerlingguy/docker-centos8-ansible
+
+  executor-fedora-31:
+    resource_class: << pipeline.parameters.parameter-resource-class >>
+    docker:
+      - image: geerlingguy/docker-fedora-31-ansible
+
+  executor-fedora-32:
+    resource_class: << pipeline.parameters.parameter-resource-class >>
+    docker:
+      - image: geerlingguy/docker-fedora-32-ansible
+
+  # test-bridge:
+  #   resource_class: << pipeline.parameters.parameter-resource-class >>
+  #   docker:
+  #     - image: rastasheep/ubuntu-sshd:16.04
+  #     - image: geerlingguy/docker-centos8-ansible
 
 jobs:
 
   # run-ansible-playbook-test-on-circlci-debian-oldstable:
-  #   executor: from-circlci-debian-oldstable
+  #   executor: executor-debian-oldstable
   #   working_directory: ~/.ansible/roles/ansible-role-install-snap
   #   steps:
   #     - checkout
@@ -75,7 +113,7 @@ jobs:
   #           ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
   # run-ansible-playbook-test-on-circlci-debian-stable:
-  #   executor: from-circlci-debian-stable
+  #   executor: executor-debian-stable
   #   working_directory: ~/.ansible/roles/ansible-role-install-snap
   #   steps:
   #     - checkout
@@ -86,7 +124,7 @@ jobs:
   #           ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
   # run-ansible-playbook-test-on-circlci-debian-testing:
-  #   executor: from-circlci-debian-testing
+  #   executor: executor-debian-testing
   #   working_directory: ~/.ansible/roles/ansible-role-install-snap
   #   steps:
   #     - checkout
@@ -97,7 +135,7 @@ jobs:
   #           ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
   # run-ansible-playbook-test-on-circlci-ubuntu-16-04:
-  #   executor: from-circlci-ubuntu-16-04
+  #   executor: executor-ubuntu-16-04
   #   working_directory: ~/.ansible/roles/ansible-role-install-snap
   #   steps:
   #     - checkout
@@ -108,7 +146,7 @@ jobs:
   #           ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
   # run-ansible-playbook-test-on-circlci-ubuntu-18-04:
-  #   executor: from-circlci-ubuntu-18-04
+  #   executor: executor-ubuntu-18-04
   #   working_directory: ~/.ansible/roles/ansible-role-install-snap
   #   steps:
   #     - checkout
@@ -119,7 +157,7 @@ jobs:
   #           ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
   # run-ansible-playbook-test-on-circlci-ubuntu-20-04:
-  #   executor: from-circlci-ubuntu-20-04
+  #   executor: executor-ubuntu-20-04
   #   working_directory: ~/.ansible/roles/ansible-role-install-snap
   #   steps:
   #     - checkout
@@ -141,17 +179,23 @@ jobs:
   #           wget -O - https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
   #           ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
-# https://circleci.com/docs/2.0/executor-types/#using-multiple-docker-images
-  run-test-bridge:
-    executor: test-bridge
-    working_directory: ~/.ansible/roles/ansible-role-install-snap
+# # https://circleci.com/docs/2.0/executor-types/#using-multiple-docker-images
+#   run-test-bridge:
+#     executor: test-bridge
+#     working_directory: ~/.ansible/roles/ansible-role-install-snap
+#     steps:
+#       - checkout
+#       - run:
+#           name: Run 2 containers 4 test local network v2
+#           command: |
+#             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
+
+  job-run-ansible-test-01:
+    executor: executor-ubuntu-18-04
+    working_directory: << pipeline.parameters.parameter-working-directory >>
     steps:
       - checkout
-      - run:
-          name: Run 2 containers 4 test local network v2
-          command: |
-            ansible-playbook -i "localhost," -c local tests/test.yml -vvv
-
+      - command-run-ansible-test
 
 workflows:
   simple-run-test:
@@ -163,4 +207,4 @@ workflows:
       # - run-ansible-playbook-test-on-circlci-ubuntu-18-04
       # - run-ansible-playbook-test-on-circlci-ubuntu-20-04
       # - run-ansible-playbook-test-on-dockerhub-centos-7
-      - run-test-bridge
+      - job-run-ansible-test-01
