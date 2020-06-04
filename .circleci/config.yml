@@ -70,6 +70,7 @@ executors:
 
   executor-ubuntu-20-04:
     resource_class: << pipeline.parameters.parameter-resource-class >>
+    working_directory: << pipeline.parameters.parameter-working-directory >>
     docker:
       - image: geerlingguy/docker-ubuntu2004-ansible
 
@@ -192,7 +193,6 @@ jobs:
 
   job-run-ansible-test-01:
     executor: executor-ubuntu-20-04
-    working_directory: << pipeline.parameters.parameter-working-directory >>
     steps:
       - checkout
       - command-run-ansible-test
