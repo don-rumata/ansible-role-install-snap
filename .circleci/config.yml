@@ -191,7 +191,7 @@ jobs:
 #             ansible-playbook -i "localhost," -c local tests/test.yml -vvv
 
   job-run-ansible-test-01:
-    executor: executor-ubuntu-18-04
+    executor: executor-ubuntu-20-04
     working_directory: << pipeline.parameters.parameter-working-directory >>
     steps:
       - checkout
