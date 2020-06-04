@@ -45,11 +45,13 @@ executors:
 
   executor-debian-oldstable:
     resource_class: << pipeline.parameters.parameter-resource-class >>
+    working_directory: << pipeline.parameters.parameter-working-directory >>
     docker:
       - image: geerlingguy/docker-debian9-ansible
 
   executor-debian-stable:
     resource_class: << pipeline.parameters.parameter-resource-class >>
+    working_directory: << pipeline.parameters.parameter-working-directory >>
     docker:
       - image: geerlingguy/docker-debian10-ansible
 
@@ -60,11 +62,13 @@ executors:
 
   executor-ubuntu-16-04:
     resource_class: << pipeline.parameters.parameter-resource-class >>
+    working_directory: << pipeline.parameters.parameter-working-directory >>
     docker:
       - image: geerlingguy/docker-ubuntu1604-ansible
 
   executor-ubuntu-18-04:
     resource_class: << pipeline.parameters.parameter-resource-class >>
+    working_directory: << pipeline.parameters.parameter-working-directory >>
     docker:
       - image: geerlingguy/docker-ubuntu1804-ansible
 
@@ -76,21 +80,25 @@ executors:
 
   executor-centos-7:
     resource_class: << pipeline.parameters.parameter-resource-class >>
+    working_directory: << pipeline.parameters.parameter-working-directory >>
     docker:
       - image: geerlingguy/docker-centos7-ansible
 
   executor-centos-8:
     resource_class: << pipeline.parameters.parameter-resource-class >>
+    working_directory: << pipeline.parameters.parameter-working-directory >>
     docker:
       - image: geerlingguy/docker-centos8-ansible
 
   executor-fedora-31:
     resource_class: << pipeline.parameters.parameter-resource-class >>
+    working_directory: << pipeline.parameters.parameter-working-directory >>
     docker:
       - image: geerlingguy/docker-fedora-31-ansible
 
   executor-fedora-32:
     resource_class: << pipeline.parameters.parameter-resource-class >>
+    working_directory: << pipeline.parameters.parameter-working-directory >>
     docker:
       - image: geerlingguy/docker-fedora-32-ansible
 
