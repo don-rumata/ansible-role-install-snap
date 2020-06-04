@@ -100,7 +100,8 @@ executors:
     resource_class: << pipeline.parameters.parameter-resource-class >>
     working_directory: << pipeline.parameters.parameter-working-directory >>
     docker:
-      - image: geerlingguy/docker-fedora-32-ansible:latest
+      # - image: geerlingguy/docker-fedora-32-ansible:latest
+      - image: diodonfrost/fedora-32-ansible
 
 jobs:
 
@@ -180,15 +181,15 @@ jobs:
 workflows:
   simple-run-test:
     jobs:
-      - job-run-ansible-in-debian-oldstable
-      - job-run-ansible-in-debian-stable
-      # TODO
-      # - job-run-ansible-in-debian-testing
-      - job-run-ansible-in-ubuntu-16-04
-      - job-run-ansible-in-ubuntu-18-04
-      - job-run-ansible-in-ubuntu-20-04
-      - job-run-ansible-in-centos-7
-      - job-run-ansible-in-centos-8
-      # TODO
-      # - job-run-ansible-in-fedora-31
-      # - job-run-ansible-in-fedora-32
+      # - job-run-ansible-in-debian-oldstable
+      # - job-run-ansible-in-debian-stable
+      # # TODO
+      # # - job-run-ansible-in-debian-testing
+      # - job-run-ansible-in-ubuntu-16-04
+      # - job-run-ansible-in-ubuntu-18-04
+      # - job-run-ansible-in-ubuntu-20-04
+      # - job-run-ansible-in-centos-7
+      # - job-run-ansible-in-centos-8
+      # # TODO
+      # # - job-run-ansible-in-fedora-31
+      - job-run-ansible-in-fedora-32
