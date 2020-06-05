@@ -219,4 +219,5 @@ workflows:
       # - job-run-ansible-in-fedora-31
       # - job-run-ansible-in-fedora-32
       - job-run-ansible-in-opensuse-15-1
-      - job-run-ansible-archlinux-rolling
+      # TODO
+      # - job-run-ansible-archlinux-rolling
