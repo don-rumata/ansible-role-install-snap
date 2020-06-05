@@ -116,6 +116,12 @@ executors:
     docker:
       - image: diodonfrost/archlinux-rolling-ansible
 
+  executor-alpine-rolling:
+    resource_class: << pipeline.parameters.parameter-resource-class >>
+    working_directory: << pipeline.parameters.parameter-working-directory >>
+    docker:
+      - image: diodonfrost/archlinux-rolling-ansible
+
 jobs:
 
 #--- 4 history ---#
@@ -203,6 +209,12 @@ jobs:
       - checkout
       - command-run-ansible-test
 
+  job-run-ansible-alpine-rolling:
+    executor: executor-alpine-rolling
+    steps:
+      - checkout
+      - command-run-ansible-test
+
 workflows:
 
   workflow-run-tests:
@@ -218,6 +230,7 @@ workflows:
       # - job-run-ansible-in-centos-8
       # - job-run-ansible-in-fedora-31
       # - job-run-ansible-in-fedora-32
-      - job-run-ansible-in-opensuse-15-1
+      # - job-run-ansible-in-opensuse-15-1
       # TODO
       # - job-run-ansible-archlinux-rolling
+      - job-run-ansible-alpine-rolling
