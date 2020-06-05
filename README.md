@@ -10,34 +10,25 @@ Install [Snap](https://snapcraft.io/) for Linux.
   platforms:
     - name: Fedora
       versions:
-        - 32
         - 31
-        - 30
+        - 32
     - name: Ubuntu
       versions:
-        - eoan
-        - disco
-        - cosmic
-        - bionic
         - xenial
-        - trusty
+        - bionic
+        - focal
     - name: Debian
       version:
-        - jessie
-        - stretch
-        - buster
+        - oldstable
         - stable
-        - testing
-    - name: EL (CentOS)
+    - name: EL (CenOS)
       versions:
-        - 8
         - 7
+        - 8
     - name: opensuse
       vesrion:
         - tumbleweed
         - 15.2
-        - 15.1
-        - 15.0
 ```
 
 ## Requirements
@@ -86,7 +77,8 @@ Apache License, Version 2.0
 
 ## TODO
 
-- Add tests.
+- ~~Add tests.~~
+- Add more tests.
 
 [license-image]: https://img.shields.io/github/license/don-rumata/ansible-role-install-snap.svg
 [license-url]: https://opensource.org/licenses/Apache-2.0
