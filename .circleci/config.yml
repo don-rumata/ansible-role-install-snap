@@ -4,7 +4,6 @@
 # https://circleci.com/docs/2.0/docker-image-tags.json
 # https://circleci.com/docs/2.0/sample-config/
 # https://circleci.com/docs/2.0/reusing-config/#executor
-
 # 4 history https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh
 version: 2.1
 
