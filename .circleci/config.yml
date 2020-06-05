@@ -208,6 +208,12 @@ jobs:
   #     - checkout
   #     - command-run-ansible-test
 
+  # job-run-ansible-alpine-rolling:
+  #   executor: executor-alpine-rolling
+  #   steps:
+  #     - checkout
+  #     - command-run-ansible-test
+
 workflows:
 
   workflow-run-tests:
