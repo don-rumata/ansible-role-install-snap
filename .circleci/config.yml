@@ -94,7 +94,8 @@ executors:
     resource_class: << pipeline.parameters.parameter-resource-class >>
     working_directory: << pipeline.parameters.parameter-working-directory >>
     docker:
-      - image: geerlingguy/docker-fedora-31-ansible:latest
+      # - image: geerlingguy/docker-fedora-31-ansible:latest
+      - image: diodonfrost/fedora-31-ansible
 
   executor-fedora-32:
     resource_class: << pipeline.parameters.parameter-resource-class >>
@@ -102,6 +103,18 @@ executors:
     docker:
       # - image: geerlingguy/docker-fedora-32-ansible:latest
       - image: diodonfrost/fedora-32-ansible
+
+  executor-opensuse-15.1:
+    resource_class: << pipeline.parameters.parameter-resource-class >>
+    working_directory: << pipeline.parameters.parameter-working-directory >>
+    docker:
+      - image: diodonfrost/opensuse-15.1-ansible
+
+  executor-archlinux-rolling:
+    resource_class: << pipeline.parameters.parameter-resource-class >>
+    working_directory: << pipeline.parameters.parameter-working-directory >>
+    docker:
+      - image: diodonfrost/archlinux-rolling-ansible
 
 jobs:
 
@@ -178,8 +191,21 @@ jobs:
       - checkout
       - command-run-ansible-test
 
+  job-run-ansible-in-opensuse-15.1:
+    executor: executor-fedora-32
+    steps:
+      - checkout
+      - command-run-ansible-test
+
+  job-run-ansible-archlinux-rolling:
+    executor: executor-archlinux-rolling
+    steps:
+      - checkout
+      - command-run-ansible-test
+
 workflows:
-  simple-run-test:
+
+  workflow-run-tests:
     jobs:
       # - job-run-ansible-in-debian-oldstable
       # - job-run-ansible-in-debian-stable
@@ -190,6 +216,7 @@ workflows:
       # - job-run-ansible-in-ubuntu-20-04
       # - job-run-ansible-in-centos-7
       # - job-run-ansible-in-centos-8
-      # # TODO
-      # # - job-run-ansible-in-fedora-31
-      - job-run-ansible-in-fedora-32
+      # - job-run-ansible-in-fedora-31
+      # - job-run-ansible-in-fedora-32
+      - job-run-ansible-in-opensuse-15.1
+      - job-run-ansible-archlinux-rolling
