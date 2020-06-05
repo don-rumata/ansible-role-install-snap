@@ -109,11 +109,17 @@ executors:
     docker:
       - image: diodonfrost/opensuse-15.1-ansible
 
-  executor-archlinux-rolling:
-    resource_class: << pipeline.parameters.parameter-resource-class >>
-    working_directory: << pipeline.parameters.parameter-working-directory >>
-    docker:
-      - image: diodonfrost/archlinux-rolling-ansible
+  # executor-archlinux-rolling:
+  #   resource_class: << pipeline.parameters.parameter-resource-class >>
+  #   working_directory: << pipeline.parameters.parameter-working-directory >>
+  #   docker:
+  #     - image: diodonfrost/archlinux-rolling-ansible
+
+  # executor-alpine-rolling:
+  #   resource_class: << pipeline.parameters.parameter-resource-class >>
+  #   working_directory: << pipeline.parameters.parameter-working-directory >>
+  #   docker:
+  #     - image: diodonfrost/archlinux-rolling-ansible
 
 jobs:
 
@@ -220,3 +226,4 @@ workflows:
       - job-run-ansible-in-opensuse-15-1
       # TODO
       # - job-run-ansible-archlinux-rolling
+      # - job-run-ansible-alpine-rolling
