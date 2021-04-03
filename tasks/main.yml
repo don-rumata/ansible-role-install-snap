@@ -17,13 +17,6 @@
   notify:
     - start-snapd-socket
     - start-snapd-apparmor
-  tags:
-    - linux
-    - snap
-    - install
-    - debian
-    - ubuntu
-    - deb
 
 - name: Enable and start snapd service 4 any Linux distros
   when:
@@ -34,10 +27,6 @@
     name: snapd
     state: started
     enabled: yes
-  tags:
-    - linux
-    - snap
-    - service
 
 - name: Get status about /snap 4 any Linux distros
   when:
@@ -46,11 +35,6 @@
   stat:
     path: /snap
   register: root_snap_present
-  tags:
-    - linux
-    - snap
-    - symlink
-    - ln
 
 # https://snapcraft.io/docs/installing-snap-on-red-hat
 - name: Create snapd symlink 4 any Linux distros
@@ -62,8 +46,3 @@
     src: /var/lib/snapd/snap
     dest: /snap
     state: link
-  tags:
-    - linux
-    - snap
-    - symlink
-    - ln

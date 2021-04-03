@@ -10,8 +10,7 @@ Install [Snap](https://snapcraft.io/) for Linux.
   platforms:
     - name: Fedora
       versions:
-        - 31
-        - 32
+        - 33
     - name: Ubuntu
       versions:
         - xenial
@@ -37,13 +36,47 @@ None.
 
 ## Role Variables
 
-None.
+```yaml
+# If you *NOT* use apt-cacher-ng or other caching proxy - select "https".
+http_or_https: http
+```
 
 ## Dependencies
 
 [min_ansible_version: 2.8](https://docs.ansible.com/ansible/latest/modules/snap_module.html)
 
+## HowTo
+
+### How to install role
+
+Over `ansible-galaxy`:
+
+```bash
+ansible-galaxy install don_rumata.ansible_role_install_snap
+```
+
+Over `bash+git`:
+
+```bash
+git clone https://github.com/don-rumata/ansible-role-install-snap don_rumata.ansible_role_install_snap
+```
+
 ## Example Playbook
+
+Install latest `snapd` on Linux over package manager of you distro:
+
+`install-snap.yml`:
+
+```yaml
+- name: Install Snap
+  hosts: all
+  strategy: free
+  serial:
+    - "100%"
+  roles:
+    - don_rumata.ansible_role_install_snap
+  tasks:
+```
 
 `install-firefox-over-snap.yml`:
 
@@ -54,7 +87,7 @@ None.
   serial:
     - "100%"
   roles:
-    - ansible-role-install-snap
+    - don_rumata.ansible_role_install_snap
   tasks:
 
     - name: Install FF over snap

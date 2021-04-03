@@ -1,6 +1,6 @@
 ---
 # https://snapcraft.io/docs/installing-snap-on-centos
-- name: Add EPEL repo
+- name: Add EPEL repo 4 CentOS 7\RHEL
   when:
     - ansible_os_family == 'RedHat'
     - ansible_pkg_mgr == 'yum'
@@ -10,9 +10,20 @@
     ansible_python_interpreter: /usr/bin/python2.7
   become: yes
   # https://fedoraproject.org/wiki/EPEL
-  yum:
+  package:
     name:
-      - https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
+      - epel-release
+    state: present
+
+- name: Add EPEL repo 4 CentOS 8+\RHEL
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_pkg_mgr == 'dnf'
+    - ansible_distribution != 'Fedora'
+  become: yes
+  package:
+    name:
+      - epel-release
     state: present
 
 - name: Install snapd and config service 4 enterprise RHEL-like
@@ -22,7 +33,7 @@
   become: yes
   vars:
     ansible_python_interpreter: /usr/bin/python2.7
-  yum:
+  package:
     name:
       - snapd
     state: present
